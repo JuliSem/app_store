@@ -1,5 +1,6 @@
-from pyexpat import model
 from django.db import models
+from django.urls import reverse
+from pyexpat import model
 
 
 class Categories(models.Model):
@@ -81,6 +82,9 @@ class Products(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} Количество - {self.quantity}'
+    
+    def get_absolute_url(self):
+        return reverse("catalog:product", kwargs={"product_slug": self.slug})  
     
     def display_id(self):
         return f'{self.id:05}'
