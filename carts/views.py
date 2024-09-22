@@ -57,7 +57,7 @@ def cart_add(request):
 
 
 
-def cart_change(request, product_slug):
+def cart_change(request):
 
     cart_id = request.POST.get('cart_id')
     quantity = request.POST.get('quantity')
