@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -67,10 +68,17 @@ def cart_change(request):
     cart.save()
     update_quantity = cart.quantity
 
-    cart = get_user_carts(request)
+    user_cart = get_user_carts(request)
+    context = {'carts': user_cart}
+
+    # if referer page is create_order add key orders: True to context
+    referer = request.META.get('HTTP_REFERER')
+    if reverse('orders:create_order') in referer:
+        context['orders'] = True
+
     cart_items_html = render_to_string(
         'carts/includes/included_cart.html',
-        {'carts': cart},
+        context=context,
         request=request
     )
     response_data = {
@@ -89,9 +97,16 @@ def cart_remove(request):
     cart.delete()
 
     user_cart = get_user_carts(request)
+    context = {'carts': user_cart}
+
+    # if referer page is create_order add key orders: True to context
+    referer = request.META.get('HTTP_REFERER')
+    if reverse('orders:create_order') in referer:
+        context['orders'] = True
+
     cart_items_html = render_to_string(
         'carts/includes/included_cart.html',
-        {'carts': user_cart},
+        context=context,
         request=request
     )
     response_data = {

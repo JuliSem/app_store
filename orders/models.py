@@ -59,6 +59,7 @@ class Order(models.Model):
         db_table = 'order'
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+        ordering = ('id', )
 
     def __str__(self) -> str:
         return (f'Заказ № {self.pk} | '
@@ -67,17 +68,40 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """Товаров, которые заказал пользователь."""
-    order = models.ForeignKey(to=Order, verbose_name='Заказ', on_delete=models.CASCADE)
-    product = models.ForeignKey(to=Products, verbose_name='Продукт', on_delete=models.SET_DEFAULT, null=True, default=None)
-    name = models.CharField(verbose_name='Название', max_length=150)
-    price = models.DecimalField(verbose_name='Цена', max_digits=7, decimal_places=2)
-    quantity = models.PositiveIntegerField(verbose_name='Количество', default=0)
-    created_timestamp = models.DateTimeField(verbose_name='Дата продажи', auto_now_add=True)
+    order = models.ForeignKey(
+        to=Order,
+        verbose_name='Заказ',
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        to=Products,
+        verbose_name='Продукт',
+        on_delete=models.SET_DEFAULT,
+        null=True, default=None
+    )
+    name = models.CharField(
+        verbose_name='Название',
+        max_length=150
+    )
+    price = models.DecimalField(
+        verbose_name='Цена',
+        max_digits=7,
+        decimal_places=2
+    )
+    quantity = models.PositiveIntegerField(
+        verbose_name='Количество',
+        default=0
+    )
+    created_timestamp = models.DateTimeField(
+        verbose_name='Дата продажи', 
+        auto_now_add=True
+    )
 
     class Meta:
         db_table = 'order_item'
         verbose_name = 'Проданный товар'
         verbose_name_plural = 'Проданные товары'
+        ordering = ('id', )
 
     objects = OrderitemQueryset.as_manager()
 

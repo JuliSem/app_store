@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from pyexpat import model
 
 
 class Categories(models.Model):
@@ -21,6 +20,7 @@ class Categories(models.Model):
         db_table = 'category'
         verbose_name = 'Категорию'
         verbose_name_plural = 'Категории'
+        ordering = ('id', )
 
 
     def __str__(self) -> str:
