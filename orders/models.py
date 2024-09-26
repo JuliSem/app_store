@@ -1,5 +1,4 @@
 from django.db import models
-from traitlets import default
 
 from goods.models import Products
 from users.models import User
@@ -9,7 +8,7 @@ class OrderitemQueryset(models.QuerySet):
 
     def total_price(self):
         return sum(cart.products_price() for cart in self)
-    
+
     def total_quantity(self):
         if self:
             return sum(cart.quantity for cart in self)
@@ -64,7 +63,7 @@ class Order(models.Model):
     def __str__(self) -> str:
         return (f'Заказ № {self.pk} | '
                 f'Покупатель {self.user.first_name} {self.user.last_name}')
-    
+
 
 class OrderItem(models.Model):
     """Товаров, которые заказал пользователь."""
@@ -93,7 +92,7 @@ class OrderItem(models.Model):
         default=0
     )
     created_timestamp = models.DateTimeField(
-        verbose_name='Дата продажи', 
+        verbose_name='Дата продажи',
         auto_now_add=True
     )
 

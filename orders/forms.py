@@ -1,6 +1,5 @@
 import re
 
-from random import choices
 from django import forms
 
 
@@ -27,8 +26,10 @@ class CreateOrderForm(forms.Form):
         data = self.cleaned_data['phone_number']
 
         if not data.isdigit():
-            raise forms.ValidationError('Номер телефона должен содержать только цифры!')
-        
+            raise forms.ValidationError(
+                'Номер телефона должен содержать только цифры!'
+            )
+
         pattern = re.compile(r'^\d{10}$')
         if not pattern.match(data):
             raise forms.ValidationError('Неверный формат номера телефона!')

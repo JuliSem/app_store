@@ -19,20 +19,5 @@ class AboutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Home - О нас'
         context['content'] = 'О нас'
-        context['text_on_page'] = 'Текст о том, какой хороший у нас классный магазин и хороший товар.'
+        context['text_on_page'] = 'Текст о том, какой классный у нас магазин и хороший товар.'
         return context
-
-# def index(request):
-#     context = {
-#         'title': 'Home - Главная',
-#         'content': 'Магазин мебели HOME'
-#     }
-#     return render(request, 'main/index.html', context)
-# 
-# def about(request):
-#     context = {
-#         'title': 'Home - О нас',
-#         'content': 'О нас',
-#         'text_on_page': 'Текст о том, какой хороший у нас классный магазин и хороший товар.'
-#     }
-#     return render(request, 'main/about.html', context)
